@@ -1,4 +1,4 @@
-#these are our ignore files qhich keeps git from constantly tracking files that change frequently
+#these are our ignore files which keeps git from constantly tracking files that change frequently
 
 *.pydevproject
 .project
