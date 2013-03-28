@@ -27,6 +27,9 @@ public class MainFragment extends Fragment{
 		/*Seems Fragment has automatic access to some values here like getArguments()*/
 		super.onCreate(savedInstanceState);
 		//textToDis = getArguments().getString("test");
+		
+		//just testing my database instance
+		ElectricFlurryDatabase db = new ElectricFlurryDatabase(this.getActivity());
 	}//end of onCreate
 	
 	
