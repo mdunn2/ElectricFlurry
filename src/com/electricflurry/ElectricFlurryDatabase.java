@@ -64,9 +64,12 @@ public class ElectricFlurryDatabase {
 	/*
 	 * Method that allows for simple queries from the database
 	 * */
-	public Cursor leQuery(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+	public ConsumeCursor leQuery(String table, String[] columns, String selection,
+			String[] selectionArgs, String groupBy, String having, String orderBy, ConsumeCursor teamsObj){
 		
-		return database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+		teamsObj.consumeCursor( database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy) );
+		
+		return teamsObj;/*I will return this just incase, but I can just as easily return nothing*/
 		
 	}//end of leQuery() method
 	
