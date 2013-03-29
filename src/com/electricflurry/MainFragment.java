@@ -5,11 +5,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class MainFragment extends Fragment{
 	String textToDis;
 	
 	public static final String LE_FRAGMENT = "fragment_holder";
+
+	
+	
 	
 	public static MainFragment newInstance() {
 		MainFragment f = new MainFragment();
@@ -28,8 +32,10 @@ public class MainFragment extends Fragment{
 		super.onCreate(savedInstanceState);
 		//textToDis = getArguments().getString("test");
 		
-		//just testing my database instance
-		ElectricFlurryDatabase db = new ElectricFlurryDatabase(this.getActivity());
+		
+		
+		
+		
 	}//end of onCreate
 	
 	
@@ -39,6 +45,9 @@ public class MainFragment extends Fragment{
 		 * Where yo shit will go that will populate 
 		 * the Fragments Views dynamically
 		 * */
+		
+		
+		
 		
 		
 		return view;

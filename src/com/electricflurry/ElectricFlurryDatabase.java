@@ -1,6 +1,8 @@
 package com.electricflurry;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -20,15 +22,53 @@ public class ElectricFlurryDatabase {
 	public ElectricFlurryDatabase(Context context) {
 		openHelper = new ElectricFlurryOpenHelper(context);
 		database = openHelper.getWritableDatabase();
+		
 	}//end of constructor
 	
+	public void closeDbase() {
+		database.close();
+	}
 	
 	
+	/*
+	 * Methods that interact with the database
+	 * */
+	
+	public void submitNewUser(String name, String phoneNum) {
+		/*phone is optional
+		 * can send null to just not include it*/
+		ContentValues values = new ContentValues();
+		values.put("user", name);
+		
+		if(phoneNum!=null)
+			values.put("phone", phoneNum);
+		
+		database.insert("users", "phone", values);
+		
+	}//end of submitNewUser() method
+	
+	public void submitSocialUrl(String type, String url) {
+		/*
+		 * Type should be something like
+		 * facebook/twitter/google/foursquare*/
+		
+		ContentValues values = new ContentValues();
+		values.put("type", type);
+		values.put("url", url);
+		
+		database.insert("social_urls", null, values);
+		
+	}//end of submitSocialUrl() method
 	
 	
-	
-	
-	
+	/*
+	 * Method that allows for simple queries from the database
+	 * */
+	public Cursor leQuery(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
+		
+		return database.query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
+		
+	}//end of leQuery() method
 	
 	
 	
@@ -59,14 +99,16 @@ public class ElectricFlurryDatabase {
 			 * and is only run once until a new
 			 * version number is sent to it
 			 * */
-			String userCreate = "CREATE TABLE user (id INTEGER PRIMARY KEY, username text) ";
+			String userCreate = " CREATE TABLE users (_id INTEGER PRIMARY KEY, user text, phone text) ";
 			dBase.execSQL(userCreate);
 			
+			String socialUrlCreate = " CREATE TABLE social_urls (_id INTEGER PRIMARY KEY, type text, url text) ";
+			dBase.execSQL(socialUrlCreate);
 			
 		}//end of constructor
 
 		@Override
-		public void onUpgrade(SQLiteDatabase arg0, int oldVersion, int newVersion) {
+		public void onUpgrade(SQLiteDatabase dBase, int oldVersion, int newVersion) {
 			/*This is used when we want to upgrade
 			 * users database if any changes are made
 			 * but for development purposes we should just
