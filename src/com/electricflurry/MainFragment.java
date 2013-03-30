@@ -45,7 +45,8 @@ public class MainFragment extends Fragment{
 		 * Where yo shit will go that will populate 
 		 * the Fragments Views dynamically
 		 * */
-		
+		TextView text = (TextView)view.findViewById(R.id.name);
+		text.setText(new Foursquare().returnLeString());
 		
 		
 		
